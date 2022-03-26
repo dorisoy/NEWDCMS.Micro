@@ -1,0 +1,73 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations: {}
+  labels:
+    app: accountservice
+  name: accountservice
+  namespace: dapreshop
+  resourceVersion: '153364'
+spec:
+  minReadySeconds: 5
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: accountservice
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        dapr.io/app-id: accountservice
+        dapr.io/app-port: '80'
+        dapr.io/config: zipkin
+        dapr.io/enabled: 'true'
+      creationTimestamp: null
+      labels:
+        app: accountservice
+        version: v1
+    spec:
+      containers:
+        - env:
+            - name: Logging__Console__FormatterName
+          #���ɾ���
+          #image: 'accountservice:release'
+          #���Ծ���
+          image: 'accountservice:debug'
+          imagePullPolicy: Never
+          name: web
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+
+          #���ؾ�
+          volumeMounts:
+            - mountPath: /app
+              name: v1
+            - mountPath: /remote_debugger:rw
+              name: v2
+      volumes:
+        #��accountservice��host�µ�bin/debug�µ�dll���ص���/appĿ¼ /run/desktop
+        - name: v1
+          hostPath:
+            path: /run/desktop/mnt/host/d/microservices/DCMS/services/accountservice/host/bin/debug/net6.0
+        #��vsdbg���߹��ص����������Թ�����
+        - name: v2
+          hostPath:
+            path: /run/desktop/mnt/host//c/users/administrator/vsdbg/vs2017u5
+
+      #-------------
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30    

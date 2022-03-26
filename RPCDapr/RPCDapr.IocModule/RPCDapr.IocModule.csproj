@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="pub\**" />
+    <EmbeddedResource Remove="pub\**" />
+    <None Remove="pub\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RPCDapr.Client.ServerProxyFactory\RPCDapr.Client.ServerProxyFactory.csproj" />
+    <ProjectReference Include="..\RPCDapr.Common\RPCDapr.Common.csproj" />
+    <ProjectReference Include="..\RPCDapr.Mesh.Dapr\RPCDapr.Mesh.Dapr.csproj" />
+    <ProjectReference Include="..\RPCDapr.Server.Kestrel\RPCDapr.Server.Kestrel.csproj" />
+  </ItemGroup>
+
+</Project>

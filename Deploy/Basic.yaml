@@ -1,0 +1,373 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: sentinel
+  namespace: dapreshop
+spec:
+  type: middleware.http.sentinel
+  version: v1
+  metadata:
+  - name: appName
+    value: "rules"
+  - name: logDir
+    value: "/tmp"
+  - name: flowRules
+    value: >-
+      []
+  - name: circuitbreakerRules
+    value: >-
+      []
+---
+apiVersion: dapr.io/v1alpha1
+kind: Configuration
+metadata:
+  name: sentinelconfig
+  namespace: dapreshop
+spec:
+  httpPipeline:
+    handlers:
+      - name: sentinel
+        type: middleware.http.sentinel
+
+---
+#mysql
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: infrastructure
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0.21
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+              name: web
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "racing.1"
+            - name: TZ
+              value: "Asia/Shanghai"
+---
+#mysql
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: infrastructure
+spec:
+#type类型为NodePort，表示将映射到本地端口，本地端口为nodePort: 32306
+  type: NodePort
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+      nodePort: 32306
+      name: tcp-mysql
+
+---
+#postgres
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: infrastructure
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+              name: web
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "Mytestpwd#123"
+            - name: TZ
+              value: "Asia/Shanghai"
+
+
+---
+#postgres
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: infrastructure
+spec:
+  type: NodePort
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+      nodePort: 30432
+      name: tcp-postgres
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch
+  namespace: infrastructure
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+        - name: elasticsearch
+          image: elasticsearch:7.11.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9200
+              name: web
+          env:
+            - name: discovery.type
+              value: "single-node"
+            - name: ES_JAVA_OPTS
+              value: "-Xms64m -Xmx512m"
+            - name: TZ
+              value: "Asia/Shanghai"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  namespace: infrastructure
+spec:
+  selector:
+    app: elasticsearch
+  ports:
+    - protocol: TCP
+      port: 9200
+      targetPort: 9200
+      name: tcp-elasticsearch
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: infrastructure
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
+              name: web
+          env:
+            - name: TZ
+              value: "Asia/Shanghai"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: infrastructure
+spec:
+  selector:
+    app: redis
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
+      name: tcp-redis
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apigateway
+  namespace: dapreshop
+spec:
+  selector:
+    matchLabels:
+      app: apigateway
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: apigateway
+        version: v1
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "apigateway"
+        dapr.io/app-port: "80"
+        dapr.io/config: "sentinelconfig"
+    spec:
+      containers:
+        - name: web
+          image: apigateway:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: web
+          env:
+            - name: TZ
+              value: "Asia/Shanghai"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apigateway
+  namespace: dapreshop
+spec:
+  selector:
+    app: apigateway
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zipkin
+  namespace: infrastructure
+spec:
+  selector:
+    matchLabels:
+      app: zipkin
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: zipkin
+    spec:
+      containers:
+        - name: zipkin
+          image: openzipkin/zipkin:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9411
+          env:
+            - name: TZ
+              value: "Asia/Shanghai"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zipkin
+  namespace: infrastructure
+spec:
+  selector:
+    app: zipkin
+  ports:
+    - protocol: TCP
+      port: 9411
+      targetPort: 9411
+---
+apiVersion: dapr.io/v1alpha1
+kind: Configuration
+metadata:
+  name: zipkin
+  namespace: dapreshop
+spec:
+  metric:
+    enabled: true
+  tracing:
+    samplingRate: "1"
+    zipkin:
+      endpointAddress: "http://zipkin.infrastructure.svc.cluster.local:9411/api/v2/spans"
+
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: infrastructure
+  name: zipkin
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: '*'
+    nginx.ingress.kubernetes.io/cors-allow-headers: 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authentication,AuthIgnore'
+spec:
+  rules:
+  - host: zipkin.dapreshop.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: zipkin
+            port:
+              number: 9411
+
+
+---
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: statestore
+  namespace: dapreshop
+spec:
+  type: state.redis
+  version: v1
+  metadata:
+  - name: actorStateStore
+    value: "true"
+  - name: redisHost
+    value: redis.infrastructure.svc.cluster.local:6379
+  - name: keyPrefix
+    value: none
+---
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: pubsub
+  namespace: dapreshop
+spec:
+  type: pubsub.redis
+  version: v1
+  metadata:
+  - name: redisHost
+    value: redis.infrastructure.svc.cluster.local:6379

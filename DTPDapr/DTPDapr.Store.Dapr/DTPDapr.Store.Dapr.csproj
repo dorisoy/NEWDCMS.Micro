@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\RPCDapr\RPCDapr.Client.ServerProxyFactory\RPCDapr.Client.ServerProxyFactory.csproj" />
+    <ProjectReference Include="..\..\RPCDapr\RPCDapr.Client.ServerSymbol\RPCDapr.Client.ServerSymbol.csproj" />
+    <ProjectReference Include="..\DTPDapr\DTPDapr.csproj" />
+  </ItemGroup>
+</Project>

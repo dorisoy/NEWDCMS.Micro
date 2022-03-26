@@ -1,0 +1,1 @@
+kubectl apply -f Deploy-part.yaml

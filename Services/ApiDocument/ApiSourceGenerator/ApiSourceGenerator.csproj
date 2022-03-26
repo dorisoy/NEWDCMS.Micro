@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp"
+						  Version="4.0.1" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Core\Base\InfrastructureBase\InfrastructureBase.csproj" />
+		<ProjectReference Include="..\..\..\Core\Remote\IApplicationService\IApplicationService.csproj" />
+	</ItemGroup>
+	<Target Name="GetDependencyTargetPaths">
+		
+		
+		<!--调试模式-->
+		<ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
+			<TargetPathWithTargetPlatformMoniker Include="..\..\..\Core\Remote\IApplicationService\bin\Debug\net6.0\IApplicationService.dll"
+												 IncludeRuntimeDependency="false" />
+			<TargetPathWithTargetPlatformMoniker Include="..\..\..\Core\Remote\IApplicationService\bin\Debug\net6.0\RPCDapr.Client.ServerSymbol.dll"
+												 IncludeRuntimeDependency="false" />
+			<TargetPathWithTargetPlatformMoniker Include="..\..\..\Core\Remote\IApplicationService\bin\Debug\net6.0\DTPDapr.dll"
+												 IncludeRuntimeDependency="false" />
+		</ItemGroup>
+		
+		<!--编译模式-->
+		<ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+			<TargetPathWithTargetPlatformMoniker Include="..\..\..\Core\Remote\IApplicationService\bin\Release\net6.0\IApplicationService.dll"
+												 IncludeRuntimeDependency="false" />
+			<TargetPathWithTargetPlatformMoniker Include="..\..\..\Core\Remote\IApplicationService\bin\Release\net6.0\RPCDapr.Client.ServerSymbol.dll"
+												 IncludeRuntimeDependency="false" />
+			<TargetPathWithTargetPlatformMoniker Include="..\..\..\Core\Remote\IApplicationService\bin\Release\net6.0\DTPDapr.dll"
+												 IncludeRuntimeDependency="false" />
+			<!--<TargetPathWithTargetPlatformMoniker Include="$(PKGRPCDapr-Dapr)\lib\net6.0\RPCDapr.Client.ServerSymbol.dll" IncludeRuntimeDependency="false" />
+      <TargetPathWithTargetPlatformMoniker Include="$(PKGRPCDapr-DTPDapr)\lib\net6.0\DTPDapr.dll" IncludeRuntimeDependency="false" />-->
+		</ItemGroup>
+		
+		
+	</Target>
+</Project>

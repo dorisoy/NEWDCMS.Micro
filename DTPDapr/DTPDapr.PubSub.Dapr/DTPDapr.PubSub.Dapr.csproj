@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\RPCDapr\RPCDapr.Client.ServerProxyFactory\RPCDapr.Client.ServerProxyFactory.csproj" />
+    <ProjectReference Include="..\..\RPCDapr\RPCDapr.Client.ServerSymbol\RPCDapr.Client.ServerSymbol.csproj" />
+    <ProjectReference Include="..\..\RPCDapr\RPCDapr.Common\RPCDapr.Common.csproj" />
+    <ProjectReference Include="..\DTPDapr\DTPDapr.csproj" />
+  </ItemGroup>
+</Project>

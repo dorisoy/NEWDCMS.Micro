@@ -1,0 +1,132 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: dapreshop-gateway
+  namespace: dapreshop
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: apigateway
+  namespace: dapreshop
+spec:
+  hosts:
+  - "api.dapreshop.com"
+  gateways:
+  - dapreshop-gateway
+  http:
+  - route:
+    - destination:
+        port:
+          number: 80
+        host: apigateway
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mobiledapreshop
+  namespace: dapreshop
+spec:
+  hosts:
+  - "m.dapreshop.com"
+  gateways:
+  - dapreshop-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 80
+        host: mobilefrontend
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: admindapreshop
+  namespace: dapreshop
+spec:
+  hosts:
+  - "admin.dapreshop.com"
+  gateways:
+  - dapreshop-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 80
+        host: adminfrontend
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: oauthdapreshop
+  namespace: dapreshop
+spec:
+  hosts:
+  - "oauth.dapreshop.com"
+  gateways:
+  - dapreshop-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 80
+        host: oauthservice-dapr
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: apidocument
+  namespace: dapreshop
+spec:
+  hosts:
+  - "swagger.dapreshop.com"
+  gateways:
+  - dapreshop-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 80
+        host: apidocument
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mediaservice
+  namespace: dapreshop
+spec:
+  hosts:
+  - "image.dapreshop.com"
+  gateways:
+  - dapreshop-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 80
+        host: mediaservice
