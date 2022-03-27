@@ -1,11 +1,11 @@
-﻿using RPCDapr.PrRPCDaprerator.Interface;
+﻿using RPCDapr.ProxyGenerator.Interface;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPCDapr.PrRPCDaprerator.Implements
+namespace RPCDapr.ProxyGenerator.Implements
 {
     internal class RemoteMessageSenderDelegate<Tin, Tout> : IRemoteMessageSenderDelegate where Tout : Task
     {

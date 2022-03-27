@@ -6,7 +6,7 @@ using IApplicationService.GoodsService;
 using IApplicationService.Base.AppQuery;
 using Infrastructure.EfDataAccess;
 using InfrastructureBase.AuthBase;
-using Oxygen.Client.ServerProxyFactory.Interface;
+using RPCDapr.Client.ServerProxyFactory.Interface;
 using InfrastructureBase.Data;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.PersistenceObject;
@@ -31,7 +31,7 @@ namespace ApplicationService
             this.eventBus = eventBus;
             this.stateManager = stateManager;
         }
-		
+
         [AuthenticationFilter]
         public async Task<ApiResult> CreateFoods(FoodsCreateDto input)
         {
@@ -41,7 +41,7 @@ namespace ApplicationService
             await unitofWork.CommitAsync();
             return ApiResult.Ok();
         }
-		
+
         [AuthenticationFilter]
         public async Task<ApiResult> UpdateFoods(FoodsUpdateDto input)
         {
@@ -53,7 +53,7 @@ namespace ApplicationService
             await unitofWork.CommitAsync();
             return ApiResult.Ok();
         }
-		
+
         [AuthenticationFilter]
         public async Task<ApiResult> DeleteFoods(FoodsDeleteDto input)
         {

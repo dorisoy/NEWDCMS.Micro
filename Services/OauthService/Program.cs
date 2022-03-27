@@ -3,7 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using Infrastructure.Http;
 using OauthService.Modules;
 using RPCDapr.IocModule;
-using RPCDapr.PrRPCDaprerator.Implements;
+using RPCDapr.ProxyGenerator.Implements;
 using RPCDapr.Server.Kestrel.Implements;
 
 

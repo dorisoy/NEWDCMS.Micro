@@ -1,13 +1,13 @@
 ﻿using Autofac;
-using RPCDapr.PrRPCDaprerator.Implements;
-using RPCDapr.PrRPCDaprerator.Interface;
+using RPCDapr.ProxyGenerator.Implements;
+using RPCDapr.ProxyGenerator.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using RPCDapr.Common.Implements;
 
-namespace RPCDapr.PrRPCDaprerator
+namespace RPCDapr.ProxyGenerator
 {
     public class Module : Autofac.Module
     {
@@ -16,7 +16,7 @@ namespace RPCDapr.PrRPCDaprerator
             builder.RegisterAssemblyTypes(ThisAssembly).Where(x => !ReflectionHelper.IsSystemType(x))
                 .AsImplementedInterfaces().Where(x =>!(x is IRemoteMessageSenderDelegate))
                 .InstancePerLifetimeScope();
-            RemotePrRPCDaprerator.CreateRemoteProxyAndRegisterInIocContainer(builder);
+            RemoteProxyGenerator.CreateRemoteProxyAndRegisterInIocContainer(builder);
         }
     }
 }

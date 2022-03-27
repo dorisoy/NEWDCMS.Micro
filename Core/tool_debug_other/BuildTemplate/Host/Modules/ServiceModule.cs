@@ -2,7 +2,7 @@
 using Infrastructure.EfDataAccess;
 using InfrastructureBase;
 using InfrastructureBase.Data.Nest;
-using Oxygen.Client.ServerSymbol.Events;
+using RPCDapr.Client.ServerSymbol.Events;
 using System.Linq;
 
 namespace Host.Modules

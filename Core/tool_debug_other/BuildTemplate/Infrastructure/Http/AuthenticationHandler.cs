@@ -3,7 +3,7 @@ using IApplicationService.Base.AccessToken;
 using InfrastructureBase;
 using InfrastructureBase.AuthBase;
 using InfrastructureBase.Http;
-using Oxygen.Client.ServerProxyFactory.Interface;
+using RPCDapr.Client.ServerProxyFactory.Interface;
 using System.Linq;
 using System.Threading.Tasks;
 

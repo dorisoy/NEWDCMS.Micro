@@ -4,7 +4,7 @@ using RPCDapr.Client.ServerSymbol.Events;
 using RPCDapr.Common;
 using RPCDapr.Common.Implements;
 using RPCDapr.Common.Interface;
-using RPCDapr.PrRPCDaprerator.Interface;
+using RPCDapr.ProxyGenerator.Interface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,9 +14,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RPCDapr.PrRPCDaprerator.Implements
+namespace RPCDapr.ProxyGenerator.Implements
 {
-    internal class RemoteMessageSender: IRemoteMessageSender
+    internal class RemoteMessageSender : IRemoteMessageSender
     {
         private readonly ISerialize serialize;
         private readonly ILogger logger;
@@ -155,9 +155,9 @@ namespace RPCDapr.PrRPCDaprerator.Implements
         {
             if (!string.IsNullOrEmpty(DaprConfig.GetCurrent().TracingHeaders))
             {
-                foreach(var headername in DaprConfig.GetCurrent().TracingHeaders.Split(","))
+                foreach (var headername in DaprConfig.GetCurrent().TracingHeaders.Split(","))
                 {
-                    foreach(var currentHeader in HttpContextExtension.ContextWapper.Value.HttpContext.Request.Headers)
+                    foreach (var currentHeader in HttpContextExtension.ContextWapper.Value.HttpContext.Request.Headers)
                     {
                         if (currentHeader.Key == headername)
                             httpRequest.Headers.Add(headername, currentHeader.Value.ToArray());

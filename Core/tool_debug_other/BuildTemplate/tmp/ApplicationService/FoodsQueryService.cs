@@ -7,7 +7,7 @@ using IApplicationService.GoodsService.Dtos.Input;
 using Infrastructure.EfDataAccess;
 using InfrastructureBase.AuthBase;
 using InfrastructureBase.Object;
-using Oxygen.Client.ServerProxyFactory.Interface;
+using RPCDapr.Client.ServerProxyFactory.Interface;
 using System.Threading.Tasks;
 using IApplicationService.Base.AppQuery;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace ApplicationService
             this.dbContext = dbContext;
             this.stateManager = stateManager;
         }
-		
+
         [AuthenticationFilter]
         public async Task<ApiResult> GetFoodsList(PageQueryInputBase input)
         {
@@ -33,6 +33,6 @@ namespace ApplicationService
             var (Data, Total) = await QueryServiceHelper.PageQuery(query, input.Page, input.Limit);
             return ApiResult.Ok(new PageQueryResonseBase<GetFoodsListResponse>(Data, Total));
         }
-		
+
     }
 }

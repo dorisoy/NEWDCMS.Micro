@@ -13,7 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RPCDapr.IocModule;
 using RPCDapr.Mesh.Dapr;
-using RPCDapr.PrRPCDaprerator.Implements;
+using RPCDapr.ProxyGenerator.Implements;
 using RPCDapr.Server.Kestrel.Implements;
 using MultilevelCache;
 using Infrastructure.Cached;

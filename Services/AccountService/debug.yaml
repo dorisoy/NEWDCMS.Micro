@@ -56,14 +56,12 @@ spec:
             - mountPath: /remote_debugger:rw
               name: v2
       volumes:
-        #��accountservice��host�µ�bin/debug�µ�dll���ص���/appĿ¼ /run/desktop
         - name: v1
           hostPath:
-            path: /run/desktop/mnt/host/d/microservices/DCMS/services/accountservice/host/bin/debug/net6.0
-        #��vsdbg���߹��ص����������Թ�����
+            path: /run/desktop/mnt/host/d/microservices/DCMS.Micro/services/accountservice/host/bin/debug/net6.0
         - name: v2
           hostPath:
-            path: /run/desktop/mnt/host//c/users/administrator/vsdbg/vs2017u5
+            path: /run/desktop/mnt/host/c/users/administrator/vsdbg/vs2017u5
 
       #-------------
       dnsPolicy: ClusterFirst

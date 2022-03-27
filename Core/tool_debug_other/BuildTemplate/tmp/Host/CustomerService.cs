@@ -3,8 +3,8 @@ using IApplicationService.AppEvent;
 using Infrastructure.EfDataAccess;
 using InfrastructureBase.AuthBase;
 using Microsoft.Extensions.Hosting;
-using Oxygen.Client.ServerProxyFactory.Interface;
-using Oxygen.Client.ServerSymbol.Events;
+using RPCDapr.Client.ServerProxyFactory.Interface;
+using RPCDapr.Client.ServerSymbol.Events;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -23,17 +23,17 @@ namespace Host
         }
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            dbContext.Database.EnsureCreated();//×Ô¶¯Ç¨ÒÆÊý¾Ý¿â
+            dbContext.Database.EnsureCreated();//ï¿½Ô¶ï¿½Ç¨ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
             _ = Task.Run(async () =>
             {
                 while (true)
                 {
-                    Thread.Sleep(20000);//µÈ´ýsidercarÆô¶¯
-                    var sender = await eventBus.SendEvent(EventTopicDictionary.Common.InitAuthApiList, new InitPermissionApiEvent<List<AuthenticationInfo>>(AuthenticationManager.AuthenticationMethods));//½«µ±Ç°·þÎñµÄÐè¼øÈ¨½Ó¿Ú·¢ËÍ¸øÓÃ»§·þÎñ
+                    Thread.Sleep(20000);//ï¿½È´ï¿½sidercarï¿½ï¿½ï¿½ï¿½
+                    var sender = await eventBus.SendEvent(EventTopicDictionary.Common.InitAuthApiList, new InitPermissionApiEvent<List<AuthenticationInfo>>(AuthenticationManager.AuthenticationMethods));//ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½Ó¿Ú·ï¿½ï¿½Í¸ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
                     if (sender != default(DefaultResponse))
                         break;
                     else
-                        Console.WriteLine("ÊÂ¼þ³õÊ¼»¯Ê§°Ü£¬20ÃëºóÖØÊÔ!");
+                        Console.WriteLine("ï¿½Â¼ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ê§ï¿½Ü£ï¿½20ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
                 }
             });
             await Task.CompletedTask;

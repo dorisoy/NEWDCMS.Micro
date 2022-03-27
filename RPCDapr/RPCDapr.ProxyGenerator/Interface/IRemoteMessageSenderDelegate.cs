@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RPCDapr.PrRPCDaprerator.Interface
+namespace RPCDapr.ProxyGenerator.Interface
 {
     public interface IRemoteMessageSenderDelegate
     {

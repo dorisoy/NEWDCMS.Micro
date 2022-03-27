@@ -1,7 +1,7 @@
 ﻿using RPCDapr.Client.ServerProxyFactory.Interface;
 using RPCDapr.Client.ServerSymbol.Events;
 using RPCDapr.Common.Implements;
-using RPCDapr.PrRPCDaprerator.Interface;
+using RPCDapr.ProxyGenerator.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;

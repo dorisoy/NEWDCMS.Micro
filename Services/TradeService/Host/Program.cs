@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 using RPCDapr.Client.ServerProxyFactory.Interface;
 using RPCDapr.IocModule;
 using RPCDapr.Mesh.Dapr;
-using RPCDapr.PrRPCDaprerator.Implements;
+using RPCDapr.ProxyGenerator.Implements;
 using RPCDapr.Server.Kestrel.Implements;
 using DTPDapr;
 using DTPDapr.PubSub.Dapr;
@@ -67,9 +67,14 @@ var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
 builder.Services.AddDbContext<EfDbContext>(options => options.UseMySql(Configuration.GetSection("SqlConnectionString").Value, serverVersion));
 
 builder.Services.AddAutofac();
+
+
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
 builder.Services.AddDTPDapr(new DTPDaprConfiguration("RPCDapr-DCMSSample", "OrderService", null, null, new IApplicationService.DTPDaprs.CreateOrder.Configuration()));
 builder.Services.AddDTPDaprStore();
+
+
 var app = builder.Build();
 app.RegisterDTPDaprHandler(async (service, error) =>
 {
@@ -80,3 +85,13 @@ app.RegisterDTPDaprHandler(async (service, error) =>
 });
 RPCDaprActorStartup.Configure(app, app.Services);
 await app.RunAsync();
+
+
+/*
+Microsoft.AspNetCore.Server.Kestrel[13]
+      Connection id "0HMGFLHNCJ3M6", Request id "0HMGFLHNCJ3M6:00000002": An unhandled exception was thrown by the application.
+      System.NullReferenceException: Object reference not set to an instance of an object.
+         at DTPDapr.PubSub.Dapr.DparSubscribeMiddleware.InvokeAsync(HttpContext context) in /src/DTPDapr/DTPDapr.PubSub.Dapr/DparSubscribeMiddleware.cs:line 57
+         at DTPDapr.PubSub.Dapr.DparSubscribeMiddleware.InvokeAsync(HttpContext context) in /src/DTPDapr/DTPDapr.PubSub.Dapr/DparSubscribeMiddleware.cs:line 57
+         at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+ */

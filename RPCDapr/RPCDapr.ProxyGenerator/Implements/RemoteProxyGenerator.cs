@@ -2,7 +2,7 @@
 using RPCDapr.Client.ServerSymbol;
 using RPCDapr.Client.ServerSymbol.Events;
 using RPCDapr.Common.Implements;
-using RPCDapr.PrRPCDaprerator.Interface;
+using RPCDapr.ProxyGenerator.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +10,11 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 
-namespace RPCDapr.PrRPCDaprerator.Implements
+namespace RPCDapr.ProxyGenerator.Implements
 {
-    public class RemotePrRPCDaprerator
+    public class RemoteProxyGenerator
     {
-        static Type ThisType = typeof(RemotePrRPCDaprerator);
+        static Type ThisType = typeof(RemoteProxyGenerator);
         static object ThisObj = Activator.CreateInstance(ThisType);
         static List<RemoteDispatchProxyBase> Proxies = new List<RemoteDispatchProxyBase>();
         /// <summary>

@@ -25,7 +25,7 @@ namespace RPCDapr.IocModule
             //注入通用服务
             builder.RegisterModule(new Common.Module());
             builder.RegisterModule(new Server.Kestrel.Module());
-            builder.RegisterModule(new PrRPCDaprerator.Module());
+            builder.RegisterModule(new ProxyGenerator.Module());
             builder.RegisterModule(new Client.ServerProxyFactory.Module());
             return builder;
         }

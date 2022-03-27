@@ -1,6 +1,6 @@
 ﻿using RPCDapr.Client.ServerSymbol;
 using RPCDapr.Common.Implements;
-using RPCDapr.PrRPCDaprerator.Interface;
+using RPCDapr.ProxyGenerator.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPCDapr.PrRPCDaprerator.Implements
+namespace RPCDapr.ProxyGenerator.Implements
 {
     public class RemoteDispatchProxy<T> : RemoteDispatchProxyBase
     {

@@ -3,7 +3,7 @@ using IApplicationService;
 using InfrastructureBase;
 using InfrastructureBase.Object;
 using RPCDapr.Common.Implements;
-using RPCDapr.PrRPCDaprerator.Implements;
+using RPCDapr.ProxyGenerator.Implements;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -8,10 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Oxygen.IocModule;
-using Oxygen.Mesh.Dapr;
-using Oxygen.ProxyGenerator.Implements;
-using Oxygen.Server.Kestrel.Implements;
+using RPCDapr.IocModule;
+using RPCDapr.Mesh.Dapr;
+using RPCDapr.ProxyGenerator.Implements;
+using RPCDapr.Server.Kestrel.Implements;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -26,9 +26,11 @@ namespace Host
         }
 
         static IHostBuilder CreateDefaultHost(string[] args) => new HostBuilder()
-                .ConfigureWebHostDefaults(webhostbuilder => {
-                    //×¢²á³ÉÎªoxygen·þÎñ½Úµã
-                    webhostbuilder.StartOxygenServer<OxygenActorStartup>((config) => {
+                .ConfigureWebHostDefaults(webhostbuilder =>
+                {
+                    //×¢ï¿½ï¿½ï¿½Îªoxygenï¿½ï¿½ï¿½ï¿½Úµï¿½
+                    webhostbuilder.StartOxygenServer<OxygenActorStartup>((config) =>
+                    {
                         config.Port = 80;
                         config.PubSubCompentName = "pubsub";
                         config.StateStoreCompentName = "statestore";
@@ -43,18 +45,18 @@ namespace Host
                 })
                 .ConfigureContainer<ContainerBuilder>(builder =>
                 {
-                    //×¢ÈëoxygenÒÀÀµ
+                    //×¢ï¿½RPCDaprnï¿½ï¿½ï¿½ï¿½
                     builder.RegisterOxygenModule();
-                    //×¢ÈëÒµÎñÒÀÀµ
+                    //×¢ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     builder.RegisterModule(new ServiceModule());
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    //×¢²á×Ô¶¨ÒåHostService
+                    //×¢ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½HostService
                     services.AddHostedService<CustomerService>();
-                    //×¢²áÈ«¾ÖÀ¹½ØÆ÷
+                    //×¢ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     LocalMethodAopProvider.RegisterPipelineHandler(AopHandlerProvider.ContextHandler, AopHandlerProvider.BeforeSendHandler, AopHandlerProvider.AfterMethodInvkeHandler, AopHandlerProvider.ExceptionHandler);
-                    //×¢²á¼øÈ¨À¹½ØÆ÷
+                    //×¢ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     AuthenticationHandler.RegisterAllFilter();
                     services.AddLogging(configure =>
                     {

@@ -5,7 +5,7 @@ using MediaService.Modules;
 using Infrastructure.Http;
 using RPCDapr.IocModule;
 using RPCDapr.Mesh.Dapr;
-using RPCDapr.PrRPCDaprerator.Implements;
+using RPCDapr.ProxyGenerator.Implements;
 using RPCDapr.Server.Kestrel.Implements;
 
 IConfiguration Configuration = default;

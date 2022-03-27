@@ -1,4 +1,4 @@
-using Oxygen.Client.ServerSymbol;
+using RPCDapr.Client.ServerSymbol;
 using IApplicationService.GoodsService.Dtos.Input;
 using System;
 using System.Collections.Generic;
@@ -14,10 +14,10 @@ namespace IApplicationService.GoodsService
     {
         [RemoteFunc(funcDescription: "")]
         Task<ApiResult> CreateFoods(FoodsCreateDto input);
-		
+
         [RemoteFunc(funcDescription: "")]
         Task<ApiResult> UpdateFoods(FoodsUpdateDto input);
-		
+
         [RemoteFunc(funcDescription: "")]
         Task<ApiResult> DeleteFoods(FoodsDeleteDto input);
     }

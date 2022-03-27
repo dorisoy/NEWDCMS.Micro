@@ -12,6 +12,15 @@ namespace DTPDapr
     public class DTPDaprConfiguration
     {
         public DTPDaprConfiguration() { }
+
+        /// <summary>
+        /// 流程配置
+        /// </summary>
+        /// <param name="clusterName">集群名称,用于注册集群交换机</param>
+        /// <param name="serviceName">服务名，同于订阅频道</param>
+        /// <param name="messageQueueConnectionString">消息队列连接字符串</param>
+        /// <param name="storeConnectionString">持久化设备连接字符串</param>
+        /// <param name="dictionary">配置订阅主题</param>
         public DTPDaprConfiguration(string clusterName, string serviceName, string messageQueueConnectionString, string storeConnectionString, params TopicConfiguration[] dictionary)
         {
             this.ClusterName = clusterName;

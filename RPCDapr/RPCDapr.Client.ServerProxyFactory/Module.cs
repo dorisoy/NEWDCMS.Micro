@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using RPCDapr.PrRPCDaprerator.Implements;
+using RPCDapr.ProxyGenerator.Implements;
 using System;
 using System.Collections.Generic;
 using System.Text;

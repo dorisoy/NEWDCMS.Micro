@@ -2,7 +2,7 @@ using Autofac;
 using Infrastructure.EfDataAccess;
 using InfrastructureBase;
 using InfrastructureBase.Data.Nest;
-using Oxygen.Client.ServerSymbol.Events;
+using RPCDapr.Client.ServerSymbol.Events;
 using System.Linq;
 
 namespace Host.Modules
@@ -14,9 +14,9 @@ namespace Host.Modules
             builder.RegisterAssemblyTypes(Common.GetProjectAssembliesArray()).Where(x => !new[] { "Microsoft", "System" }.Any(y => x.AssemblyQualifiedName.Contains(y)))
                 .AsImplementedInterfaces().Where(x => !(x is IEventHandler))
                 .InstancePerLifetimeScope();
-            //ÊÂ¼ş¶©ÔÄÆ÷ĞèÒª¶ÀÁ¢×¢²áÒòÎªÆä½Ó¿ÚÏàÍ¬
+            //ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ó¿ï¿½ï¿½ï¿½Í¬
             Common.RegisterAllEventHandlerInAutofac(Common.GetProjectAssembliesArray(), builder);
-            //×¢ÈëÆäËû»ù´¡ÉèÊ©ÒÀÀµ
+            //×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê©ï¿½ï¿½ï¿½ï¿½
             builder.RegisterGeneric(typeof(ElasticSearchRepository<>)).As(typeof(IElasticSearchRepository<>)).InstancePerLifetimeScope();
             builder.RegisterType<UnitofWorkManager<EfDbContext>>().As<IUnitofWork>().InstancePerLifetimeScope();
         }

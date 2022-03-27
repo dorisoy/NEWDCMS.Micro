@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 using RPCDapr.Client.ServerProxyFactory.Interface;
 using RPCDapr.IocModule;
 using RPCDapr.Mesh.Dapr;
-using RPCDapr.PrRPCDaprerator.Implements;
+using RPCDapr.ProxyGenerator.Implements;
 using RPCDapr.Server.Kestrel.Implements;
 using DTPDapr;
 using DTPDapr.PubSub.Dapr;
@@ -69,7 +69,9 @@ builder.Services.AddAutofac();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 builder.Services.AddDTPDapr(new DTPDaprConfiguration("RPCDapr-DCMSSample", "GoodsService", null, null, new IApplicationService.DTPDaprs.CreateOrder.Configuration()));
+
 builder.Services.AddDTPDaprStore();
+
 var app = builder.Build();
 app.RegisterDTPDaprHandler(async (service, error) =>
 {

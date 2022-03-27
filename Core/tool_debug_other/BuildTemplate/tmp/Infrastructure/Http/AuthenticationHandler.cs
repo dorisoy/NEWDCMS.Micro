@@ -3,7 +3,7 @@ using IApplicationService.Base.AccessToken;
 using InfrastructureBase;
 using InfrastructureBase.AuthBase;
 using InfrastructureBase.Http;
-using Oxygen.Client.ServerProxyFactory.Interface;
+using RPCDapr.Client.ServerProxyFactory.Interface;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,7 +24,7 @@ namespace Infrastructure.Http
                 var accountInfo = await GetAccountInfo(HttpContextExt.Current.RequestService.Resolve<IStateManager>());
                 HttpContextExt.SetUser(accountInfo);
                 if (!HttpContextExt.Current.User.IgnorePermission && authMethod.CheckPermission && !HttpContextExt.Current.GetAuthIgnore() && HttpContextExt.Current.User.Permissions != null && !HttpContextExt.Current.User.Permissions.Contains(routePath))
-                    throw new InfrastructureException("µ±Ç°µÇÂ¼ÓÃ»§È±ÉÙÊ¹ÓÃ¸Ã½Ó¿ÚµÄ±ØÒªÈ¨ÏÞ,ÇëÖØÊÔ!");
+                    throw new InfrastructureException("ï¿½ï¿½Ç°ï¿½ï¿½Â¼ï¿½Ã»ï¿½È±ï¿½ï¿½Ê¹ï¿½Ã¸Ã½Ó¿ÚµÄ±ï¿½ÒªÈ¨ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
             }
         }
 
@@ -33,12 +33,12 @@ namespace Infrastructure.Http
             var token = HttpContextExt.Current.Headers.FirstOrDefault(x => x.Key == "Authentication").Value;
             var usertoken = await stateManager.GetState<AccessTokenItem>(new AccountLoginAccessToken(token));
             if (usertoken == null)
-                throw new InfrastructureException("ÊÚÈ¨µÇÂ¼TokenÒÑ¹ýÆÚ,ÇëÖØÐÂµÇÂ¼!");
+                throw new InfrastructureException("ï¿½ï¿½È¨ï¿½ï¿½Â¼Tokenï¿½Ñ¹ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Â¼!");
             var userinfo = await stateManager.GetState<CurrentUser>(new AccountLoginCache(usertoken.Id));
             if (userinfo == null)
-                throw new InfrastructureException("µÇÂ¼ÓÃ»§ÐÅÏ¢ÒÑ¹ýÆÚ,ÇëÖØÐÂµÇÂ¼!");
+                throw new InfrastructureException("ï¿½ï¿½Â¼ï¿½Ã»ï¿½ï¿½ï¿½Ï¢ï¿½Ñ¹ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Â¼!");
             else if (userinfo.State == 1)
-                throw new InfrastructureException("µÇÂ¼ÓÃ»§ÒÑ±»Ëø¶¨,ÇëÖØÐÂµÇÂ¼!");
+                throw new InfrastructureException("ï¿½ï¿½Â¼ï¿½Ã»ï¿½ï¿½Ñ±ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Â¼!");
             if (!usertoken.LoginAdmin)
                 userinfo.Permissions = null;
             return userinfo;

@@ -1,7 +1,7 @@
 using Domain.Repository;
 using Infrastructure.EfDataAccess;
-using Oxygen.Client.ServerProxyFactory.Interface;
-using Oxygen.Client.ServerSymbol.Events;
+using RPCDapr.Client.ServerProxyFactory.Interface;
+using RPCDapr.Client.ServerSymbol.Events;
 
 namespace ApplicationService
 {

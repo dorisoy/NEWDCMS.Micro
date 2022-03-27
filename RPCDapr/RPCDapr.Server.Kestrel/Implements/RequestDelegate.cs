@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RPCDapr.Client.ServerSymbol;
 using RPCDapr.Common.Implements;
 using RPCDapr.Common.Interface;
-using RPCDapr.PrRPCDaprerator.Implements;
+using RPCDapr.ProxyGenerator.Implements;
 using RPCDapr.Server.Kestrel.Interface;
 using System;
 using System.Collections.Generic;

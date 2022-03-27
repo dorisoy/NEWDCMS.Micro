@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Hosting;
 using RPCDapr.Common.Implements;
-using RPCDapr.PrRPCDaprerator.Implements;
+using RPCDapr.ProxyGenerator.Implements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace RPCDapr.Server.Kestrel.Implements
         {
             RPCDaprIocContainer.BuilderIocContainer(lifetimeScope);
             //初始化消息发送代理
-            RemotePrRPCDaprerator.InitRemoteMessageSenderDelegate();
+            RemoteProxyGenerator.InitRemoteMessageSenderDelegate();
         }
         public async Task StartAsync(CancellationToken cancellationToken)
         {

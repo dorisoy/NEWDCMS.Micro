@@ -8,10 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Oxygen.IocModule;
-using Oxygen.Mesh.Dapr;
-using Oxygen.ProxyGenerator.Implements;
-using Oxygen.Server.Kestrel.Implements;
+using RPCDapr.IocModule;
+using RPCDapr.Mesh.Dapr;
+using RPCDapr.ProxyGenerator.Implements;
+using RPCDapr.Server.Kestrel.Implements;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -26,9 +26,11 @@ namespace Host
         }
 
         static IHostBuilder CreateDefaultHost(string[] args) => new HostBuilder()
-                .ConfigureWebHostDefaults(webhostbuilder => {
+                .ConfigureWebHostDefaults(webhostbuilder =>
+                {
                     //注册成为oxygen服务节点
-                    webhostbuilder.StartOxygenServer<OxygenActorStartup>((config) => {
+                    webhostbuilder.StartOxygenServer<OxygenActorStartup>((config) =>
+                    {
                         config.Port = 80;
                         config.PubSubCompentName = "pubsub";
                         config.StateStoreCompentName = "statestore";

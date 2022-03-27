@@ -3,7 +3,7 @@ using IApplicationService;
 using InfrastructureBase;
 using InfrastructureBase.Http;
 using InfrastructureBase.Object;
-using Oxygen.Common.Implements;
+using RPCDapr.Common.Implements;
 using System;
 using System.Threading.Tasks;
 
@@ -13,12 +13,12 @@ namespace Infrastructure.Http
     {
         public static void ContextHandler(OxygenHttpContextWapper oxygenHttpContext)
         {
-            HttpContextExt.SetCurrent(oxygenHttpContext);//×¢ÈëhttpÉÏÏÂÎÄ¸ø±¾µØÒµÎñÉÏÏÂÎÄ¶ÔÏó
+            HttpContextExt.SetCurrent(oxygenHttpContext);//×¢ï¿½ï¿½httpï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½
         }
         public static async Task BeforeSendHandler(object param, OxygenHttpContextWapper oxygenHttpContext)
         {
-            await new AuthenticationHandler().AuthenticationCheck(HttpContextExt.Current.RoutePath);//ÊÚÈ¨Ð£Ñé
-            //·½·¨Ç°À¹½ØÆ÷£¬Èë²ÎÐ£Ñé
+            await new AuthenticationHandler().AuthenticationCheck(HttpContextExt.Current.RoutePath);//ï¿½ï¿½È¨Ð£ï¿½ï¿½
+            //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½
             if (param != null)
                 CustomModelValidator.Valid(param);
             oxygenHttpContext.Headers.Add("AuthIgnore", "true");
@@ -31,14 +31,14 @@ namespace Infrastructure.Http
 
         public static async Task<object> ExceptionHandler(Exception exception)
         {
-            //Òì³£´¦Àí
+            //ï¿½ì³£ï¿½ï¿½ï¿½ï¿½
             if (exception is ApplicationServiceException || exception is DomainException || exception is InfrastructureException)
             {
                 return await ApiResult.Err(exception.Message).Async();
             }
             else
             {
-                Console.WriteLine("ÏµÍ³Òì³££º" + exception.Message);
+                Console.WriteLine("ÏµÍ³ï¿½ì³£ï¿½ï¿½" + exception.Message);
                 return await ApiResult.Err().Async();
             }
         }

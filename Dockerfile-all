@@ -36,8 +36,8 @@ ENTRYPOINT ["dotnet", "MediaService.dll"]
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 as scheduleservice
 WORKDIR /app
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
-COPY --from=svcbuild /src/Services/scheduleservice/bin/Release/net6.0/publish /app
-ENTRYPOINT ["dotnet", "scheduleservice.dll"]
+COPY --from=svcbuild /src/Services/ScheduleService/bin/Release/net6.0/publish /app
+ENTRYPOINT ["dotnet", "ScheduleService.dll"]
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 as oauthservice
 WORKDIR /app

@@ -37,6 +37,8 @@ namespace DTPDapr.PubSub.Dapr
                         newResponse.Seek(0, SeekOrigin.Begin);
                         string responseBody = new StreamReader(newResponse).ReadToEnd();
                         submodellist = context.RequestServices.GetService<ISerialize>().DeserializesJson<List<SubscribeModel>>(responseBody) ?? new List<SubscribeModel>();
+
+                        //SagaSubscribe
                         submodellist.Add(new SubscribeModel(DaprConfig.GetCurrent().PubSubCompentName, ConfigurationManager.GetConfig().ServiceName, $"/DTPDaprSubscribe/{ConfigurationManager.GetConfig().ServiceName}"));
                         newResponse.Seek(0, SeekOrigin.Begin);
                     }

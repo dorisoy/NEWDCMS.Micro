@@ -1,4 +1,4 @@
-using Oxygen.Client.ServerSymbol;
+using RPCDapr.Client.ServerSymbol;
 using IApplicationService.Base.AppQuery;
 using System;
 using System.Collections.Generic;

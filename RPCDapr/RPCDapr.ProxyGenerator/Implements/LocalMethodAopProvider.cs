@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPCDapr.PrRPCDaprerator.Implements
+namespace RPCDapr.ProxyGenerator.Implements
 {
     /// <summary>
     /// 本地管道AOP提供者
