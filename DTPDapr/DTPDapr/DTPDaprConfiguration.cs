@@ -16,7 +16,7 @@ namespace DTPDapr
         /// <summary>
         /// 流程配置
         /// </summary>
-        /// <param name="clusterName">集群名称,用于注册集群交换机</param>
+        /// <param name="clusterName">集群名称,用于注册集群交换机,默认取解决方案名称</param>
         /// <param name="serviceName">服务名，同于订阅频道</param>
         /// <param name="messageQueueConnectionString">消息队列连接字符串</param>
         /// <param name="storeConnectionString">持久化设备连接字符串</param>

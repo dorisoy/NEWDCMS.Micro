@@ -1,0 +1,45 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apigateway
+  namespace: dapreshop
+spec:
+  selector:
+    matchLabels:
+      app: apigateway
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: apigateway
+        version: v1
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "apigateway"
+        dapr.io/app-port: "80"
+        dapr.io/config: "sentinelconfig"
+    spec:
+      containers:
+        - name: web
+          image: apigateway:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: web
+          env:
+            - name: TZ
+              value: "Asia/Shanghai"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apigateway
+  namespace: dapreshop
+spec:
+  selector:
+    app: apigateway
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

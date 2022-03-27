@@ -71,7 +71,7 @@ builder.Services.AddAutofac();
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-builder.Services.AddDTPDapr(new DTPDaprConfiguration("RPCDapr-DCMSSample", "OrderService", null, null, new IApplicationService.DTPDaprs.CreateOrder.Configuration()));
+builder.Services.AddDTPDapr(new DTPDaprConfiguration("DCMS", "OrderService", null, null, new IApplicationService.DTPDaprs.CreateOrder.Configuration()));
 builder.Services.AddDTPDaprStore();
 
 

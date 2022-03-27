@@ -38,10 +38,19 @@ namespace DTPDapr.PubSub.Dapr
                         string responseBody = new StreamReader(newResponse).ReadToEnd();
                         submodellist = context.RequestServices.GetService<ISerialize>().DeserializesJson<List<SubscribeModel>>(responseBody) ?? new List<SubscribeModel>();
 
+                        var cfg = DaprConfig.GetCurrent();
+                        var cfm = ConfigurationManager.GetConfig();
+
                         //SagaSubscribe
-                        submodellist.Add(new SubscribeModel(DaprConfig.GetCurrent().PubSubCompentName, ConfigurationManager.GetConfig().ServiceName, $"/DTPDaprSubscribe/{ConfigurationManager.GetConfig().ServiceName}"));
+                        submodellist.Add(new SubscribeModel(cfg?.PubSubCompentName, cfm?.ServiceName, $"/DTPDaprSubscribe/{cfm?.ServiceName}"));
+
                         newResponse.Seek(0, SeekOrigin.Begin);
                     }
+                    catch (Exception ex)
+                    {
+						System.Diagnostics.Debug.Print(ex.Message);
+						//"[{\"pubsubname\":\"pubsub\",\"topic\":\"InitTestUserSuccess\",\"route\":\"/eventhandler/eventhandlesetdefmallsetting\"},{\"pubsubname\":\"pubsub\",\"topic\":\"UpdateGoodsToEs\",\"route\":\"/eventhandler/eventhandleeventupdategoodstoes\"}]"
+					}
                     finally
                     {
                         context.Response.ContentType = "application/json";

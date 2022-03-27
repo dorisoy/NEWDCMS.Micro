@@ -68,7 +68,7 @@ builder.Services.AddDbContext<EfDbContext>(options => options.UseMySql(Configura
 builder.Services.AddAutofac();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-builder.Services.AddDTPDapr(new DTPDaprConfiguration("RPCDapr-DCMSSample", "GoodsService", null, null, new IApplicationService.DTPDaprs.CreateOrder.Configuration()));
+builder.Services.AddDTPDapr(new DTPDaprConfiguration("DCMS", "GoodsService", null, null, new IApplicationService.DTPDaprs.CreateOrder.Configuration()));
 
 builder.Services.AddDTPDaprStore();
 
