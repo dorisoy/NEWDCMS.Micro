@@ -1,5 +1,3 @@
-docker rmi tradeservice:release goodsservice:release
 docker system prune -f
 cd ../../
-docker build . -t goodsservice:release --target goodsservice
-docker build . -t tradeservice:release --target tradeservice
+docker build . -t accountservice:1.0 --target accountservice

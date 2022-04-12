@@ -97,6 +97,7 @@ namespace Domain.Entities
         /// <returns></returns>
         public void CheckAccountCanLogin(string password, bool loginAdmin)
         {
+            //29D643B3B17998420A57EFDD6571943B
             if (Password != password)
                 throw new DomainException("用户密码错误!");
             if (State == AccountState.Locking)

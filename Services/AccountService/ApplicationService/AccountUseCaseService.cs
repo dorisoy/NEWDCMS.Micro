@@ -118,7 +118,7 @@ namespace ApplicationService
             var account = await accountRepository.FindAccountByAccounId(input.LoginName);
             if (account == null)
                 throw new ApplicationServiceException("登录账号不存在!");
-            account.CheckAccountCanLogin(Common.GetMD5SaltCode(input.Password, account.Id), input.LoginAdmin);
+            account.CheckAccountCanLogin(Common.GetMD5SaltCode(input.Password), input.LoginAdmin);
             await BuildLoginCache(account);
             var loginToken = Common.GetMD5SaltCode(Guid.NewGuid().ToString(), input.LoginAdmin);
             await stateManager.SetState(new AccountLoginAccessToken(loginToken, new AccessTokenItem(account.Id, input.LoginAdmin)));

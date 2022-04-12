@@ -24,3 +24,5 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 await app.RunAsync();
+
+//http://swagger.dapreshop.com:30882/swagger/Index.html

@@ -44,6 +44,7 @@ namespace Domain.Services
                         {
                             if(string.IsNullOrEmpty(y.Path))
                                 throw new DomainException($"服务{x}下没有有效接口地址!");
+
                             var childpermission = new Permission();
                             childpermission.CreatePermission(permission.Id, y.PermissionName, y.Path);
                             repository.Add(childpermission);

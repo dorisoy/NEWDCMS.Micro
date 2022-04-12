@@ -37,8 +37,17 @@ namespace Infrastructure.Repository
             context.RolePermission.RemoveRange(context.RolePermission.Where(x => x.RoleId == role.Id));
             if (role.Permissions != null && role.Permissions.Any())
             {
-                context.RolePermission.AddRange(context.Permission.Where(x => x.FatherId != 0 && role.Permissions.Contains(x.Id)).Select(x => new RolePermission() { RoleId = role.Id, PermissionId = x.Id }));
-            }
+
+                var rps = context.Permission
+                    .Where(x => x.FatherId >= 0 && role.Permissions.Contains(x.Id))
+                    .Select(x => new RolePermission()
+                    {
+                        RoleId = role.Id,
+                        PermissionId = x.Id
+                    });
+
+				context.RolePermission.AddRange(rps);
+			}
         }
 
         public async Task<bool> RoleRelationUser(int roleId)

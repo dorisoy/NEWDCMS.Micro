@@ -54,9 +54,9 @@ namespace InfrastructureBase.Object
                 return default;
             if (apiResult.Data == null)
                 return default;
-            if(apiResult.Code!=0 && !string.IsNullOrEmpty(apiResult.Message))
-            {
-                throw new ApplicationServiceException(apiResult.Message);
+			if (apiResult.Code >= 0 && !string.IsNullOrEmpty(apiResult.Message))
+			{
+				throw new ApplicationServiceException(apiResult.Message);
             }
             var json = JsonSerializer.Serialize(apiResult.Data, JsonSerializerDefaultOption.Default);
             return JsonSerializer.Deserialize<T>(json, JsonSerializerDefaultOption.Default);

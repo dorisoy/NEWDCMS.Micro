@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace InfrastructureBase.AuthBase
 {
+    /// <summary>
+    /// 用于身份验证管理
+    /// </summary>
     public abstract class AuthenticationManager
     {
         public static List<AuthenticationInfo> AuthenticationMethods = new List<AuthenticationInfo>();
