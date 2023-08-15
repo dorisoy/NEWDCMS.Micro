@@ -1,4 +1,4 @@
-# DCMS.Micro
+# NEWDCMS.Micro
 
 注意：本仓库已经迁移至 [NEWDCMS](https://github.com/NEWDCMS)
 
